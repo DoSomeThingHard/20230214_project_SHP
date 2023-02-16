@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style>
-
+#nprogress .bar{
+  background: red !important;
+}
 </style>

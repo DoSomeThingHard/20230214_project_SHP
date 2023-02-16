@@ -24,7 +24,7 @@ export default new VueRouter({
             meta:{showBottom: true}
         },
         {
-            path:'/search/:keyword',
+            path:'/search/:keyword?',
             component: Search,
             meta:{showBottom: true},
             name: "search"
@@ -37,9 +37,9 @@ export default new VueRouter({
             path:'/register',
             component: Register
         },
-        {
-            path:'/',
-            redirect:'/home'
-        }
+        // {
+        //     path:'/',
+        //     redirect:'/home'
+        // }
     ]
 })
