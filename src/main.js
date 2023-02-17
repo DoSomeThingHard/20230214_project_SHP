@@ -4,10 +4,18 @@ import App from './App.vue'
 import TypeaNav from '@/components/TypeNav';
 // 第一个参数是名字 第二个是组件
 Vue.component(TypeaNav.name, TypeaNav)
+// 轮播图组件 -- 全局组件
+import Carousel from '@/components/Carousel'
+Vue.component(Carousel.name, Carousel)
 //  引入路由
 import router from '@/router'
 // 引入仓库
 import store from '@/store'
+// 引入MockServe.js mock数据
+import '@/mock/mockServe'
+// 引入swiper的样式
+// import 'swiper/swiper-bundle.min.css'
+import 'swiper/css/swiper.min.css'
 
 Vue.config.productionTip = false
 let a = 100

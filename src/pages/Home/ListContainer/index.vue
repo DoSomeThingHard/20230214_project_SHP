@@ -3,29 +3,22 @@
   <div class="list-container">
     <div class="sortList clearfix">
       <div class="center">
+        <!-- banner组件 -->
+        <Carousel :list="bannerList"/>
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <!-- <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div class="swiper-slide" v-for="(banner) in bannerList" :key="banner.id">
+              <img :src="banner.imgUrl" />
             </div>
-            <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div>
-          </div>
+          </div> -->
           <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
+          <!-- <div class="swiper-pagination"></div> -->
 
           <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
+          <!-- <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
-        </div>
+        </div> -->
       </div>
       <div class="right">
         <div class="news">
@@ -101,7 +94,52 @@
 </template>
 
 <script>
-export default {};
+import {mapState} from 'vuex'
+// 引如包
+// import Swiper from 'swiper'
+
+export default {
+  mounted(){
+    // 派发action，通过vuex发起ajax请求，将数据仓储在仓库当中
+    this.$store.dispatch('getBannerList');
+  },
+  watch:{
+    // 监听bannerList数据的变化
+    // bannerList:{
+    //   handler(newValue, oldValue){
+          
+    //   }
+    // }
+    // bannerList:{
+    //   immediate:true,
+    //   handler(newValue,oldValue){
+    //     console.log('ListContainer',newValue, oldValue)
+    //     this.$nextTick(()=>{
+    //       this.mySwiper = new Swiper(this.$refs.mySwiper,{
+    //           loop: true,
+    //           keyboard: true,
+    //           // 如果需要分页器
+    //           pagination:{
+    //             el:'.swiper-pagination',
+    //             // 点击小球的时候可以切换
+    //             clickable: true
+    //           },
+    //           // 如果需要前进后退按钮
+    //           navigation:{
+    //             nextEl:'.swiper-button-next',
+    //             prevEl:'.swiper-button-prev'
+    //           }
+    //         })
+    //     })
+    //   }
+    // }
+  },
+  computed:{
+    ...mapState({
+      bannerList:(state)=> state.home.bannerList
+    })
+  }
+};
 </script>
 
 <style scoped lang="less">

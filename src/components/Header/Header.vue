@@ -27,25 +27,15 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
+        <!-- 点击logo返回首页 -->
         <router-link to="/home" class="logo">
           <img src="./images/logo.png" alt="" />
         </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input
-            type="text"
-            id="autocomplete"
-            class="input-error input-xxlarge"
-            v-model="keyword"
-          />
-          <button
-            class="sui-btn btn-xlarge btn-danger"
-            type="button"
-            @click="goSearch"
-          >
-            搜索
-          </button>
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
         </form>
       </div>
     </div>
@@ -63,7 +53,11 @@ export default {
   methods: {
     // 搜索按钮的回调函数：需要向search路由进行跳转
     goSearch() {
-      this.$router.push({name: "search", params:{keyword: this.keyword}, query:{k:this.keyword.toUpperCase()}})
+      let location = {name: "search", params:{keyword: this.keyword || undefined}}
+      if(this.$route.query){
+        location.query = this.$route.query
+      }
+      this.$router.push(location)
     },
   },
 };

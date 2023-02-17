@@ -2,33 +2,35 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="leaveIndex">
+      <div @mouseleave="leaveIndex" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
-        <div class="sort">
-          <div class="all-sort-list2" @click="goSearch">
-            <div class="item" :class="{ on: c1.categoryId == currentIndex }" v-for="c1 in categoryList" :key="c1.categoryId">
-              <h3 @mouseenter="changeIndex(c1.categoryId)">
-                <a :data-categoryName='c1.categoryName' :data-category1Id='c1.categoryId'>{{ c1.categoryName }}</a>
-              </h3>
-              <!-- 二级、三级分类 -->
-              <div class="item-list clearfix" :style="{display:currentIndex==c1.categoryId?'block':'none'}">
-                <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                  <dl class="fore">
-                    <dt>
-                      <a :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{ c2.categoryName }}</a>
-                    </dt>
-                    <dd>
-                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{ c3.categoryName }}</a>
-                      </em>
-                    </dd>
-                  </dl>
+        <transition name="sort">
+          <div class="sort" v-show="show">
+            <div class="all-sort-list2" @click="goSearch">
+              <div class="item" :class="{ on: c1.categoryId == currentIndex }" v-for="c1 in categoryList" :key="c1.categoryId">
+                <h3 @mouseenter="changeIndex(c1.categoryId)">
+                  <a :data-categoryName='c1.categoryName' :data-category1Id='c1.categoryId'>{{ c1.categoryName }}</a>
+                </h3>
+                <!-- 二级、三级分类 -->
+                <div class="item-list clearfix" :style="{display:currentIndex==c1.categoryId?'block':'none'}">
+                  <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                    <dl class="fore">
+                      <dt>
+                        <a :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{ c2.categoryName }}</a>
+                      </dt>
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{ c3.categoryName }}</a>
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -53,13 +55,17 @@ export default {
     return {
       // 存储用户鼠标移上哪一个一级分类
       currentIndex: -1,
+      show: true
     };
   },
   name: "TypeNav",
   // 组件挂载完毕，可以像服务器发送请求
   mounted() {
-    // 通知Vuex发送请求，获取数据，存储于仓库当中
-    this.$store.dispatch("categoryList");
+    // 当组件挂载完毕的时候 让show属性变为false
+    // 如果不是home路由组件 将typeNav进行隐藏
+    if(this.$route.path != '/home'){
+      this.show = false
+    }
   },
   computed: {
     ...mapState({
@@ -77,9 +83,16 @@ export default {
     changeIndex:throttle(function(currentIndex){
       this.currentIndex = currentIndex
     },50),
-    // 鼠标移出去的事件回调
+    // 鼠标移出去的事件回调 让商品分类列表进行隐藏
     leaveIndex() {
       this.currentIndex = -1;
+      if(this.$route.path != '/home'){
+        this.show = false
+      }
+    },
+    // 当鼠标移入的时候，让商品分类列表展示
+    enterShow(){
+      this.show = true
     },
     // 进行路由跳转的方法
     goSearch(event){
@@ -89,10 +102,10 @@ export default {
       // 这里需要注意我们添加的自定义属性名字是 data-categoryName  浏览器解析完就是  data-categoryname了
       // 可以通过节点的 dataset属性获取到 节点的自定义属性与属性值
       // console.log(element.dataset.categoryname)
-      let {categoryname,category1id,category2id,category3id} = element.dataset;
+      let {categoryname, category1id, category2id, category3id} = element.dataset;
       if(categoryname){
-        // let location = {name: 'search'}
-        let location = {path: '/search'}
+        let location = {name: 'search'}
+        // let location = {path: '/search'}   // path不能跟params一起使用
         let query = {categoryName: categoryname}
         // 要区分1 2 3级分类的a标签
         if(category1id){
@@ -101,6 +114,10 @@ export default {
           query.category2Id = category2id
         }else {
           query.category3Id = category3id
+        }
+        // 当路由中含有params的时候 将params也一起带过去
+        if(this.$route.params){
+          location.params = this.$route.params
         }
         // 整理完参数
         location.query = query
@@ -232,6 +249,31 @@ export default {
         }
       }
     }
+    // 过渡动画的样式
+    // 过渡动画开始状态（进入）
+    .sort-enter{
+      // height: 0px;
+      transform: rotateY(90deg);
+    }
+    // 过渡动画的结束状态
+    .sort-enter-to{
+      // height: 461px;
+      transform: rotateY(0deg);
+    }
+    // 定义动画时间和速率
+    .sort-enter-active{
+      transition: all .25s linear;
+    }
+    // // 过渡动画开始状态（离开）
+    // .sort-leave-from{
+    //   opacity: 1;
+    // }
+    // .sort-leave-to{
+    //   opacity: 0;
+    // }
+    // .sort-leave-active{
+    //   transition: all .5s linear;
+    // }
   }
 }
 </style>
