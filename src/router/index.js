@@ -3,43 +3,34 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // 使用插件
 Vue.use(VueRouter);
-// 引入路由
-import Home from '@/pages/Home/index.vue'
-import Search from '@/pages/Search'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
+// 将路由的内容引入进来
+import routes from './routes';
+
+// 解决路由跳转报错的问题
 let originPush = VueRouter.prototype.push
+let originrReplace = VueRouter.prototype.replace
+// 重写VueRouter,prototype身上的push方法
 VueRouter.prototype.push = function(location){
     originPush.call(this,location,()=>{},()=>{})
     console.log(this)
-    // alert('11')
+}
+// 重写VueRouter,prototype身上的replace方法
+VueRouter.prototype.replace = function(location){
+    originrReplace.call(this,location,()=>{},()=>{})
+    console.log(this)
 }
 
 // 配置路由
 export default new VueRouter({
-    routes:[
-        {
-            path:'/home',
-            component: Home,
-            meta:{showBottom: true}
-        },
-        {
-            path:'/search/:keyword?',
-            component: Search,
-            meta:{showBottom: true},
-            name: "search"
-        },
-        {
-            path:'/login',
-            component: Login
-        },
-        {
-            path:'/register',
-            component: Register
-        },
-        // {
-        //     path:'/',
-        //     redirect:'/home'
-        // }
-    ]
+    routes,
+    // 滚动行为
+    scrollBehavior(to, from, savedPosition){
+        console.log(to,from, savedPosition);
+        // 代表的是浏览器存下的偏移
+        if(savedPosition){
+            return savedPosition
+        }
+        // 代表的是滚动条在最上方
+        return {y:0}
+    }
 })

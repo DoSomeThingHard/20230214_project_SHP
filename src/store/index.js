@@ -9,7 +9,9 @@ Vue.use(Vuex)
 // actions：处理action，可以书写自己的业务逻辑，可以处理异步
 // getters：理解为计算属性，用于简化仓库数据，让组件获取仓库数据更加的方便
 import home from './home'
-import count from './count'
+import search from './search'
+import detail from './detail'
+import shopcart from './shopcart'
 export default new Vuex.Store({
     // state:{},
     // mutations:{},
@@ -17,7 +19,9 @@ export default new Vuex.Store({
     // getters:{}
     modules:{
         home,
-        count
+        search,
+        detail,
+        shopcart
     }
 
 })

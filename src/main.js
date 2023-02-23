@@ -7,6 +7,9 @@ Vue.component(TypeaNav.name, TypeaNav)
 // 轮播图组件 -- 全局组件
 import Carousel from '@/components/Carousel'
 Vue.component(Carousel.name, Carousel)
+// 分页器 -- 全局组件
+import Pagination from '@/components/Pagination'
+Vue.component(Pagination.name, Pagination)
 //  引入路由
 import router from '@/router'
 // 引入仓库
@@ -21,6 +24,10 @@ Vue.config.productionTip = false
 let a = 100
 new Vue({
   render: h => h(App),
+  // 全局事件总线 $bus 的配置
+  beforeCreate(){
+    Vue.prototype.$bus = this;
+  },
   // 注册路由：地下的写法KV一致 省略V
   // 注册路由信息：当这里书写router的时候，组件身上都拥有 $route 和 $router属性
   router,

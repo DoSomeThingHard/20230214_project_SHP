@@ -104,6 +104,8 @@ export default {
       // console.log(element.dataset.categoryname)
       let {categoryname, category1id, category2id, category3id} = element.dataset;
       if(categoryname){
+        // 点击让本页面收起
+        this.show = false
         let location = {name: 'search'}
         // let location = {path: '/search'}   // path不能跟params一起使用
         let query = {categoryName: categoryname}
@@ -165,7 +167,8 @@ export default {
       left: 0;
       top: 45px;
       width: 210px;
-      height: 461px;
+      // height: 461px;
+      min-height: 460px;
       position: absolute;
       background: #fafafa;
       z-index: 999;
