@@ -36,3 +36,15 @@ export const reqDeleteCartById = (skuId)=> requests({url:`/cart/deleteCart/${sku
 export const reqUpdateCheckedById = (skuId,isChecked) => requests({url:`/cart/checkCart/${skuId}/${isChecked}`, method:'get'})
 
 
+// 获取验证码的接口  /api/user/passport/sendCode/{phone}  method:get
+export const reqGetCode = (phone)=> requests({url:`/user/passport/sendCode/${phone}`,method:'get'})
+// 用户注册的接口   /api/user/passport/register   method:post  phone code password
+export const reqUserRegister = (data)=>requests({url: '/user/passport/register',data,method:'post'})
+// 登录的接口  /api/user/passport/login  method: post    phone password
+export const reqUserLogin = (data)=>requests({url:'user/passport/login',data, method:'post'})
+// 获取用户信息 /api/user/passport/auth/getUserInfo  method:get
+export const reqUserInfo = ()=>requests({url:'user/passport/auth/getUserInfo', method:'get'})
+// 退出登录  /api/user/passport/logout  method:get
+export const reqUserLogout =()=>requests({url:'user/passport/logout', method:'get'})
+
+

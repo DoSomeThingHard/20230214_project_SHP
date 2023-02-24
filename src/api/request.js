@@ -26,6 +26,10 @@ requests.interceptors.request.use((config)=>{
         // 给请求头添加字段  userTempId是后台给的
         config.headers.userTempId = uuidToken;
     }
+    let token = store.state.user.token
+    if(token){
+        config.headers.token = token;
+    }
     // 进度条开始动
     nprogress.start()
     return config;

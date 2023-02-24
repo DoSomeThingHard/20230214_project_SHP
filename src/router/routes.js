@@ -44,8 +44,8 @@ export default [
         path:'/register',
         component: Register
     },
-    // {
-    //     path:'/',
-    //     redirect:'/home'
-    // }
+    {
+        path:'/',
+        redirect:'/home'
+    }
 ]
