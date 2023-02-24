@@ -20,6 +20,17 @@ import '@/mock/mockServe'
 // import 'swiper/swiper-bundle.min.css'
 import 'swiper/css/swiper.min.css'
 
+// 统一接口api文件夹里面全部请求函数 这个API是一个对象 包含所有的请求函数
+import * as API from '@/api' 
+
+// 按需引入Element-UI
+import { Button,MessageBox } from 'element-ui';
+Vue.component(Button.name, Button)
+// Vue.use(Button)
+// ElementUI注册组件的时候挂在原型上
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+
 Vue.config.productionTip = false
 let a = 100
 new Vue({
@@ -27,6 +38,7 @@ new Vue({
   // 全局事件总线 $bus 的配置
   beforeCreate(){
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API; // 把它放在Vue的原型对象上面 全局都能用
   },
   // 注册路由：地下的写法KV一致 省略V
   // 注册路由信息：当这里书写router的时候，组件身上都拥有 $route 和 $router属性

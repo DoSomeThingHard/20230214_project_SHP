@@ -48,3 +48,13 @@ export const reqUserInfo = ()=>requests({url:'user/passport/auth/getUserInfo', m
 export const reqUserLogout =()=>requests({url:'user/passport/logout', method:'get'})
 
 
+// 获取用户收货地址信息
+export const reqAddressInfo = ()=> requests({url:'user/userAddress/auth/findUserAddressList', method:'get'})
+// 获取商品清单
+export const reqOrderInfo = ()=> requests({url:'/order/auth/trade', method:'get'})
+// 提交订单
+export const reqSubmitOrder = (trade, data) => requests({url:`/order/auth/submitOrder?tradeNo=${trade}`,data, method:'post'})
+// 获取订单支付信息
+export const reqPayInfo = (orderId)=> requests({url:`/payment/weixin/createNative/${orderId}`, method:'get'})
+// 获取支付订单状态
+export const reqPayStatus = (orderId)=> requests({url:`/payment/weixin/queryPayStatus/${orderId}`, method:'get'})
