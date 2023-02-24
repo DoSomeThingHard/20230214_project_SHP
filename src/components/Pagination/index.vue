@@ -13,7 +13,7 @@
     
     <!-- 下面部分 -->
     <button v-if="startNumAndEndNum.end < (totalPage - 1)">···</button>
-    <button @click="clickPage(total)" v-if="startNumAndEndNum.end < totalPage">{{totalPage}}</button>
+    <button @click="clickPage(totalPage)" v-if="startNumAndEndNum.end < totalPage">{{totalPage}}</button>
     <button @click="$emit('getPageNo',pageNo+1)" :disabled='pageNo == totalPage'>下一页</button>
     
     <span class="text">共 {{total}} 条,{{totalPage}}页</span>
