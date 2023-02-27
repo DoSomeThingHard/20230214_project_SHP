@@ -80,7 +80,9 @@
           const {phone, password} = this
           if(phone && password){
             await this.$store.dispatch('userLogin',{phone, password})
-            this.$router.push('/home')
+            // 这里需要判断路由中是否有 redirect 字段 没有跳首页 有的话就跳 对应的字段
+            let toPath = this.$route.query.redirect || '/home'
+            this.$router.push(toPath)
           }else{
             alert('请填写手机号或者是验证码')
           }

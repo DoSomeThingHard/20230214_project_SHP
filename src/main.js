@@ -23,6 +23,14 @@ import 'swiper/css/swiper.min.css'
 // 统一接口api文件夹里面全部请求函数 这个API是一个对象 包含所有的请求函数
 import * as API from '@/api' 
 
+// 引入懒加载插件
+import VueLazyload from 'vue-lazyload'
+import loadimage from '@/assets/1.gif'
+// const loadimage = require('./assets/images/icons.png')
+Vue.use(VueLazyload,{
+  loading: loadimage
+})
+
 // 按需引入Element-UI
 import { Button,MessageBox } from 'element-ui';
 Vue.component(Button.name, Button)

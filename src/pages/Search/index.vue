@@ -43,7 +43,8 @@
                   <div class="p-img">
                     <!-- 在理由跳转的时候 要带着参数 -->
                     <router-link :to="`/detail/${good.id}`">
-                      <img :src="good.defaultImg" />
+                      <!-- <img :src="good.defaultImg" /> -->
+                      <img v-lazy="good.defaultImg" />
                     </router-link>
                   </div>
                   <div class="price">

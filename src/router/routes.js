@@ -45,12 +45,32 @@ export default [
     {
         path:'/pay',
         component: Pay,
-        meta:{showBottom: true}
+        meta:{showBottom: true},
+        // 路由独享守卫
+        beforeEnter: (to, from, next) => {
+            // 去交易页面，必须是从购物车而来
+            if(from.path == '/trade'){
+                next()
+            }else{
+                // 其他的路由组件而来，停留在当前
+                next(false)
+            }
+        }
     },
     {
         path:'/trade',
         component: Trade,
-        meta:{showBottom: true}
+        meta:{showBottom: true},
+        // 路由独享守卫
+        beforeEnter: (to, from, next) => {
+            // 去交易页面，必须是从购物车而来
+            if(from.path == '/shopcart'){
+                next()
+            }else{
+                // 其他的路由组件而来，停留在当前
+                next(false)
+            }
+        }
     },
     {
         path:'/shopcart',

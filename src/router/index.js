@@ -73,7 +73,14 @@ router.beforeEach(async (to,from,next)=>{
         }
     }else{
         // 未登录的情况
-        next()
+        // 未登录有些页面就不能给进入：交易相关 支付相关 用户中心
+        let toPath = to.path;
+        if(toPath.indexOf('/trade')!=-1 || toPath.indexOf('/pay')!=-1 || toPath.indexOf('/center')!=-1){
+            // 把未登录 没有跳转的路由信息存在地址栏中【路由】
+            next('/login?redirect='+toPath)
+        }else{
+            next()
+        }
     }
 })
 
