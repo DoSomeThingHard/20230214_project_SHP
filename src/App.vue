@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <h1 v-upper='msg'>1</h1> -->
     <Header />
     <!-- 路由组件出口的地方 -->
     <router-view></router-view>
@@ -12,6 +13,11 @@
 import Header from './components/Header/Header.vue'
 import Footer from './components/Footer'
 export default {
+  data() {
+    return {
+      msg: 'abc'
+    }
+  },
   components:{
     Header,
     Footer

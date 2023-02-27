@@ -1,5 +1,5 @@
 // 引入路由
-import Home from '@/pages/Home/index.vue'
+// import Home from '@/pages/Home/index.vue'
 import Search from '@/pages/Search'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
@@ -90,7 +90,8 @@ export default [
     },
     {
         path:'/home',
-        component: Home,
+        // component: Home,
+        component: ()=> import('@/pages/Home'), // 这就是懒加载啊
         meta:{showBottom: true}
     },
     {
