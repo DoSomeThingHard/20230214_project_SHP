@@ -111,5 +111,45 @@ export default [
     {
         path:'/',
         redirect:'/home'
+    },
+    {
+        path:'/communication',
+        component:()=> import('@/pages/communication/communication'),
+        children:[
+            {
+                path:'event',
+                component: ()=>import('@/pages/communication/EventTest/EventTest'),
+            },
+            {
+                path:'model',
+                component: ()=>import('@/pages/communication/ModelTest/ModelTest'),
+            },
+            {
+                path:'sync',
+                component: ()=>import('@/pages/communication/SyncTest/SyncTest'),
+            },
+            {
+                path:'children-parent',
+                component: ()=>import('@/pages/communication/ChildrenParentTest/ChildrenParentTest'),
+            },
+            {
+                path:'attrs-listeners',
+                component: ()=>import('@/pages/communication/AttrsListenersTest/AttrsListenersTest'),
+            },
+            {
+                path:'scope-slot-test',
+                component: ()=>import('@/pages/communication/ScopeSlotTest/ScopeSlotTest'),
+            },
+            {
+                path:'/',
+                // redirect:'event'
+                // redirect:'model'
+                // redirect:'sync'
+                // redirect:'attrs-listeners'
+                // redirect:'children-parent'
+                redirect:'scope-slot-test'
+            }
+
+        ]
     }
 ]
